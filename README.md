@@ -1,5 +1,4 @@
 # Udacity-P6
-Data Visualization
 
 ## Summary:
 My data visualization explores the mean batting averages and mean homerun scores by baseball players as a function of the players being right-handed, left-handed or ambidextrous. The visualization shows that although right-handed players are a majority they have the lowest average homerun score.
@@ -18,7 +17,7 @@ Response to initial plot: OK charts but the top one is weird
 Response to final plot: Looks great and more streamlined
 
 ### Person 3:
-Response to initial plot: It seems ok but I cannot see much from the height chart. Can you zoom in?
+Response to initial plot: It seems ok but I cannot see much from the height chart. Can you zoom in?  
 Response to final plot: Much more elegant
 
 ## Resources:
