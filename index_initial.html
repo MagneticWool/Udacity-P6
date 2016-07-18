@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+    
+    <style>
+      circle.dimple-series-1 {
+        fill: red;
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      h3 {
+        text-align: left;
+      }
+    </style>
+
+    <script type="text/javascript">
+
+      function draw(data) {
+
+          var hand = [0,0,0];
+          var avgs = [0,0,0,0,0,0];
+          data.forEach(function(d) {
+            if (d["handedness"] === "R") {hand[0] += 1; avgs[0] += +d["avg"]; avgs[3] += +d["HR"]}
+            else if (d["handedness"] === "L") {hand[1] += 1; avgs[1] += +d["avg"]; avgs[4] += +d["HR"]}
+            else if (d["handedness"] === "B") {hand[2] += 1; avgs[2] += +d["avg"]; avgs[5] += +d["HR"]}
+          });
+
+          var vec_length = d3.sum(hand);
+          var choises = ["pct_hands", "mean_AVG", "mean_HR"];
+          var stat = [
+          {hand : "right", pct_hands : (hand[0]/vec_length*100).toFixed(2), 
+                           mean_AVG : (avgs[0]/hand[0]).toFixed(2),
+                           mean_HR : (avgs[3]/hand[0]).toFixed(2)},
+          {hand : "left", pct_hands : (hand[1]/vec_length*100).toFixed(2),
+                          mean_AVG : (avgs[1]/hand[1]).toFixed(2),
+                          mean_HR : (avgs[4]/hand[1]).toFixed(2)},
+          {hand : "both", pct_hands : (hand[2]/vec_length*100).toFixed(2),
+                          mean_AVG : (avgs[2]/hand[2]).toFixed(2),
+                          mean_HR : (avgs[5]/hand[2]).toFixed(2)}
+          ];
+
+          d3.select("#topText")
+            .append("h2")
+            .text("Baseballs");
+
+
+          var svg = dimple.newSvg("#chartContainer1", 1500, 400);
+          var myChart = new dimple.chart(svg, data);
+          var x = myChart.addCategoryAxis("x", "name");
+          //x.addOrderRule("name");
+          var y1 = myChart.addMeasureAxis("y", "height");
+          var y2 = myChart.addMeasureAxis("y", "weight");
+
+          y1.tickFormat = ",.2f";
+          y2.tickFormat = ",.3f";
+
+          myChart.addSeries(null, dimple.plot.line);
+          myChart.addSeries(null, dimple.plot.scatter);
+          myChart.addSeries(null, dimple.plot.bar, [x, y2]);
+          myChart.draw();
+
+          var svg2 = dimple.newSvg("#chartContainer2", 750, 400);
+          var myChart2 = new dimple.chart(svg2, stat);
+          myChart2.setBounds(100, 15, 700, 350);
+          var x21 = myChart2.addCategoryAxis("x", "hand");
+          var y21 = myChart2.addMeasureAxis("y", "pct_hands");
+          myChart2.addSeries(null, dimple.plot.bar, [x21, y21]);
+          myChart2.draw();
+
+          
+        };
+
+    </script>
+  </head>
+<body>
+  <script type="text/javascript">
+  /*
+    Use D3 (not dimple.js) to load the CSV file
+    and pass the contents of it to the draw function
+    The CSV file contains columns: name, handedness, height (in inches), weight (in pounds), avg (batting average and HR (home runs)
+    */
+  d3.csv("./data/baseball_data.csv", function(d) {
+        d['weight'] = +d['weight']*0.45359237; // conversion from pounds to kilograms
+        d['height'] = +d['height']*0.0254; // conversion from inches to meters
+        return d;
+  }, draw);
+  </script>
+  <div id = "topText"></div>
+  <div id = "chartContainer1"></div>
+  <div id = "chartContainer2"></div>
+</body>
+</html>
