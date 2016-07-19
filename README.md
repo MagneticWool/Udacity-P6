@@ -4,7 +4,7 @@
 My data visualization explores the mean batting averages and mean homerun scores by baseball players as a function of the players being right-handed, left-handed or ambidextrous. The visualization shows that although right-handed players are a majority they have the lowest average homerun score.
 
 ## Design:
-The visualization should explore the relationship between handedness and results. Possibly using bar charts and with buttons to change plots.
+The visualization should explore the relationship between handedness and results. Bar charts will be used as these are easy to interpret and buttons will change plots.
 In my initial draft I included a scatter plot of player heights with a bar chart of weights but feedback made me realize that the data was superfluous to the point being made. I got goog feedback on the bar charts and decided to show all plots this way.
 
 ## Feedback:
@@ -14,7 +14,7 @@ Response to final plot: Gets straight to the point
 
 ### Person 2:
 Response to initial plot: OK charts but the top one is weird  
-Response to final plot: Looks great and more streamlined
+Response to final plot: Looks great and more streamlined. I can see that lefthanded players are better at scoring homeruns.
 
 ### Person 3:
 Response to initial plot: It seems ok but I cannot see much from the height chart. Can you zoom in?  
