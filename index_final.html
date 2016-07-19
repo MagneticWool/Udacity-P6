@@ -48,15 +48,15 @@
           // do some calculations as basis for charts
           var hand = [0,0,0];
           var avgs = [0,0,0,0,0,0];
-          data.forEach(function(d) {
+          data.forEach(function(d) { // do summations as function of handedness 
             if (d["handedness"] === "R") {hand[0] += 1; avgs[0] += +d["avg"]; avgs[3] += +d["HR"]}
             else if (d["handedness"] === "L") {hand[1] += 1; avgs[1] += +d["avg"]; avgs[4] += +d["HR"]}
             else if (d["handedness"] === "B") {hand[2] += 1; avgs[2] += +d["avg"]; avgs[5] += +d["HR"]}
           });
 
           var vec_length = d3.sum(hand);
-          var choises = ["pct_hands", "mean_AVG", "mean_HR"];
-          var stat = [
+          var choices = ["pct_hands", "mean_AVG", "mean_HR"];
+          var stat = [ // calculate percentages and means then round to two decimals
           {hand : "right", pct_hands : (hand[0]/vec_length*100).toFixed(2), 
                            mean_AVG : (avgs[0]/hand[0]).toFixed(2),
                            mean_HR : (avgs[3]/hand[0]).toFixed(2)},
@@ -67,7 +67,6 @@
                           mean_AVG : (avgs[2]/hand[2]).toFixed(2),
                           mean_HR : (avgs[5]/hand[2]).toFixed(2)}
           ];
-
 
           // Dimple.js Chart construction code
           var plot_tmp = "pct_hands";
@@ -115,14 +114,13 @@
                 .text("Lefthanded players hit the most homeruns");
             }
             
-
           };
 
           var buttons = d3.select("#buttonDiv")
                         .append("div")
                         .attr("class", "years_buttons")
                         .selectAll("div")
-                        .data(choises)
+                        .data(choices)
                         .enter()
                         .append("div")
                         .text(function(d) {
@@ -149,12 +147,11 @@
     </script>
   </head>
 <body>
-<!-- <h1 text-align: "center">Baseballs</h1> -->
   <script type="text/javascript">
   /*
-    Use D3 (not dimple.js) to load the CSV file
-    and pass the contents of it to the draw function
-    The CSV file contains columns: name, handedness, height (in inches), weight (in pounds), avg (batting average and HR (home runs)
+    Use D3 (not dimple.js) to load the CSV file and pass the contents of it to the draw function
+    The CSV file contains columns: name, handedness, height (in inches), 
+    weight (in pounds), avg (batting average and HR (home runs)
     */
   d3.csv("./data/baseball_data.csv", function(d) {
         d['weight'] = +d['weight']*0.45359237; // conversion from pounds to kilograms
@@ -166,6 +163,5 @@
   <div id = "buttonDiv"></div>
   <div id = "chartContainer1"></div>
   <div id = "bottomText"></div>
-  
 </body>
 </html>
