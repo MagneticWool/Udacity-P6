@@ -21,7 +21,7 @@ Response to initial plot: It seems ok but I cannot see much from the height char
 Response to final plot: Much more elegant
 
 ## Resources:
--dimplejs.org
--d3js.org
--stackoverflow.com
--github.com/PMSI-AlignAlytics/dimple/
+- dimplejs.org
+- d3js.org
+- stackoverflow.com
+- github.com/PMSI-AlignAlytics/dimple/
